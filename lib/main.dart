@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> titleList = ['Amazon', '楽天', 'Yahoo!','CarConnect'];
+  List<String> titleList = ['楽天', 'Amazon',  'Yahoo!', 'CarConnect', 'Apple'];
   int _counter = 0;
 
   void _incrementCounter() {
@@ -43,7 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Password logger'),
       ),
-      body: ListView(
+      // 表示をひとつひとつ書くやり方
+      /*body: ListView(
         children: [
           ListTile(
             leading: Icon(Icons.vpn_key),
@@ -62,26 +63,47 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           ListTile(
             leading: Icon(Icons.vpn_key_outlined),
-            title: Text('CarConnect'),
+            title: Text(titleList[2]),
           ),
           Divider(
             thickness: 3,
           ),
           ListTile(
             leading: Icon(Icons.vpn_key_rounded),
-            title: Text('楽天'),
+            title: Text(titleList[3]),
           ),
           Divider(
             thickness: 3,
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      ),*/
+     // 24動的に表示する、内容は上と同じ,returnに表示内容を書けばよい
+     // ただしreturnは一つの内容しか返せないので「ListTile＋Divider」をセットでWidgetにする
+     // Columnを使うとひとまとめにできる,itemCountで表示回数を制御する,titleList[i]にする
+     //
+     body: ListView.builder(
+       itemCount: titleList.length,
+       itemBuilder: (BuildContext context, int i){
+         return Column(
+             children: [
+               ListTile(
+                 leading: Icon(Icons.vpn_key),
+                 title: Text(titleList[i]),
+               ),
+               // 23, ここに区切り線を引きたい
+               Divider(
+               thickness: 3,
+               ),
+            ],
+         );
+       },
+     ),
+     floatingActionButton: FloatingActionButton(
+       onPressed: _incrementCounter,
+       tooltip: 'Increment',
+       child: Icon(Icons.add),
+     ), // This trailing comma makes auto-formatting nicer for build methods.
+   );
   }
 }
 
